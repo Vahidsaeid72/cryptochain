@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Block genesis() matches the snapshot 1`] = `
+Block {
+  "data": [],
+  "hash": "hash-one",
+  "lastHash": "-----",
+  "timestamp": 1,
+}
+`;

@@ -1,0 +1,33 @@
+# Node modules
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Dependency directories
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional REPL history
+.node_repl_history
+
+# Environment variables
+.env
+
+# Coverage directory used by jest
+coverage/
+
+# Output of build tools
+dist/
+build/
+
+# OS generated files
+.DS_Store
+Thumbs.db
