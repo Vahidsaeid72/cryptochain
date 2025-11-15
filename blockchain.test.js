@@ -23,34 +23,31 @@ describe("Blockchain", () => {
     describe("when the chain does not start with the genesis block", () => {
       it("returns false", () => {
         blockchain.chain[0].data = "fake-genesis-data";
-        expect(blockchain.isValidChain(blockchain.chain)).toBe(false);
+        expect(Blockchain.isValidChain(blockchain.chain)).toBe(false);
       });
     });
     describe("when the chain starts with the genesis block and has multiple blocks", () => {
-      describe("and a lostHash reference has changed", () => {
-      it("returns false", () => {
+
+      beforeEach(() => {
         blockchain.addBlock({ data: "one" });
         blockchain.addBlock({ data: "two" });
         blockchain.addBlock({ data: "three" });
+      });
+      describe("and a lostHash reference has changed", () => {
+      it("returns false", () => {
         blockchain.chain[2].lastHash = "fake-lasthash";
-        expect(blockchain.isValidChain(blockchain.chain)).toBe(false);
+        expect(Blockchain.isValidChain(blockchain.chain)).toBe(false);
       });
       });
       describe("and the chain contains a block with a invalid field", () => {
         it("returns false", () => {
-          blockchain.addBlock({ data: "one" });
-          blockchain.addBlock({ data: "two" });
-          blockchain.addBlock({ data: "three" });
           blockchain.chain[2].data = "fake-data";
-          expect(blockchain.isValidChain(blockchain.chain)).toBe(false);
+          expect(Blockchain.isValidChain(blockchain.chain)).toBe(false);
         });
       });
       describe("and the chain does not contain any invalid blocks", () => {
         it("returns true", () => {
-          blockchain.addBlock({ data: "one" });
-          blockchain.addBlock({ data: "two" });
-          blockchain.addBlock({ data: "three" });
-          expect(blockchain.isValidChain(blockchain.chain)).toBe(true);
+          expect(Blockchain.isValidChain(blockchain.chain)).toBe(true);
         });
       });
     });
