@@ -34,5 +34,15 @@ class Blockchain {
 
     return true;
   }
+
+  replaceChain(chain) {
+    if (chain.length <= this.chain.length) {
+      return false;
+    }
+    if (!Blockchain.isValidChain(chain)) {
+      return false;
+    }
+    this.chain = chain;
+  }
 }
 module.exports = Blockchain;
