@@ -2,12 +2,19 @@ const Block = require("./block");
 const Blockchain = require("./blockchain");
 
 describe("Blockchain", () => {
-  let blockchain , newChain , originalChain;
+  let blockchain, newChain, originalChain;
 
   beforeEach(() => {
     blockchain = new Blockchain();
     newChain = new Blockchain();
     originalChain = blockchain.chain;
+  });
+
+  beforeEach(() => {
+    errorMock = jest.fn();
+    logMock = jest.fn();
+    global.console.error = errorMock;
+    global.console.log = logMock;
   });
 
   it("contains a `chain` Array instance", () => {
@@ -29,17 +36,16 @@ describe("Blockchain", () => {
       });
     });
     describe("when the chain starts with the genesis block and has multiple blocks", () => {
-
       beforeEach(() => {
         blockchain.addBlock({ data: "one" });
         blockchain.addBlock({ data: "two" });
         blockchain.addBlock({ data: "three" });
       });
       describe("and a lostHash reference has changed", () => {
-      it("returns false", () => {
-        blockchain.chain[2].lastHash = "fake-lasthash";
-        expect(Blockchain.isValidChain(blockchain.chain)).toBe(false);
-      });
+        it("returns false", () => {
+          blockchain.chain[2].lastHash = "fake-lasthash";
+          expect(Blockchain.isValidChain(blockchain.chain)).toBe(false);
+        });
       });
       describe("and the chain contains a block with a invalid field", () => {
         it("returns false", () => {
@@ -54,15 +60,14 @@ describe("Blockchain", () => {
       });
     });
   });
-  
   describe("replaceChain()", () => {
     describe("when the chain is not longer", () => {
       it("does not replace the chain", () => {
-        newChain[0]={ data: "fake-genesis-data" };
+        newChain[0] = { data: "fake-genesis-data" };
         blockchain.replaceChain(newChain.chain);
-          expect(blockchain.chain).toEqual(originalChain);
+        expect(blockchain.chain).toEqual(originalChain);
       });
-    })
+    });
     describe("when the chain is longer", () => {
       beforeEach(() => {
         newChain.addBlock({ data: "one" });
@@ -75,13 +80,13 @@ describe("Blockchain", () => {
           blockchain.replaceChain(newChain.chain);
           expect(blockchain.chain).toEqual(originalChain);
         });
-      })
+      });
       describe("and the chain is valid", () => {
         it("replaces the chain", () => {
           blockchain.replaceChain(newChain.chain);
           expect(blockchain.chain).toEqual(newChain.chain);
         });
-      })
-    })
-  })
+      });
+    });
+  });
 });
