@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "block.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
@@ -14,7 +15,10 @@
   },
   "dependencies": {
     "@types/jest": "^30.0.0",
+    "axios": "^1.13.2",
     "express": "^5.2.1",
-    "hex-to-binary": "^1.0.1"
+    "hex-to-binary": "^1.0.1",
+    "redis": "^5.10.0",
+    "tcp-port-used": "^1.0.2"
   }
 }
